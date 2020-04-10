@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+# Build an image where I can run tests
+before_install:
+  - docker build -t kiararip/react-test -f ./client/Dockerfile.dev ./client
+
+# Run Tests
+script:
+  - docker run -e CI=true kiararip/react-test npm test -- --coverage
+
+#Build production Images
+after_success:
+  - docker built -t kiararip/multi-client ./client
+  - docker built -t kiararip/multi-nginx ./nginx
+  - docker built -t kiararip/multi-server ./server
+  - docker built -t kiararip/multi-worker ./worker
+
+# Login to DockerHub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take those images and push over to DockerHub
+  - docker push kiararip/multi-client
+  - docker push kiararip/multi-nginx
+  - docker push kiararip/multi-server
+  - docker push kiararip/multi-worker
