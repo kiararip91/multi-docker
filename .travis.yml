@@ -12,10 +12,10 @@ script:
 
 #Build production Images
 after_success:
-  - docker built -t kiararip/multi-client ./client
-  - docker built -t kiararip/multi-nginx ./nginx
-  - docker built -t kiararip/multi-server ./server
-  - docker built -t kiararip/multi-worker ./worker
+  - docker build -t kiararip/multi-client ./client
+  - docker build -t kiararip/multi-nginx ./nginx
+  - docker build -t kiararip/multi-server ./server
+  - docker build -t kiararip/multi-worker ./worker
 
 # Login to DockerHub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
