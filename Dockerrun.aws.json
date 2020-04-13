@@ -1,0 +1,17 @@
+{
+	"EWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name": "client",
+			"image": "kiararip/multi-client",
+			"hostname": "client",
+			"essential": false
+		},
+		{
+			"name": "server",
+			"image": "kiararip/multi-server",
+			"hostname": "server",
+			"essential": false
+		}
+	]
+}
